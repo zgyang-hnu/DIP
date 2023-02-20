@@ -434,24 +434,19 @@ class FEWDomain(nn.Module):
             nn.ReLU(inplace=True),
                               
         )
-        # self.down_supp = nn.Sequential(
-        #     nn.Conv2d(fea_dim*2, reduce_dim, kernel_size=1, padding=0, bias=False),
-        #     nn.GroupNorm(8,reduce_dim),
-        #     nn.ReLU(inplace=True),
-            
-        #     #nn.Dropout2d(p=0.5)                   
-        # )  
+ 
        
         self.projector = nn.Sequential(
-            # nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0, bias=False),
-            # nn.GroupNorm(8,reduce_dim),
-            # nn.ReLU(inplace=True),
+             nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0, bias=False),
+             nn.BatchNorm2d(reduce_dim),
+             nn.ReLU(inplace=True),
             # #nn.Dropout2d(p=0.5) ,
-            # nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0, bias=False), 
-            # nn.ReLU(inplace=True), #uncomment when using few-shot for fully supervised training
+             nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0, bias=False), 
+             nn.BatchNorm2d(reduce_dim),
+             #nn.ReLU(inplace=True), #uncomment when using few-shot for fully supervised training
             # nn.Dropout2d(p=0.5) ,
             #nn.Conv2d(reduce_dim, 19, kernel_size=1, padding=0),   #souonly
-            nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0,bias=False),       #fewdomain
+            
         )  
   
 
@@ -827,15 +822,16 @@ class FEWDomainComPro(nn.Module):
         #         )  
 
         self.projector = nn.Sequential(
-            # nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0, bias=False),
-            # nn.GroupNorm(8,reduce_dim),
-            # nn.ReLU(inplace=True),
-            # #nn.Dropout2d(p=0.5) ,
-            # nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0, bias=False), 
-            # nn.ReLU(inplace=True), #uncomment when using few-shot for fully supervised training
+             nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0, bias=False),
+             nn.BatchNorm2d(reduce_dim),
+             nn.ReLU(inplace=True),
+             #nn.Dropout2d(p=0.5) ,
+             nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0, bias=False),
+             nn.BatchNorm2d(reduce_dim),
+             #nn.ReLU(inplace=True), #uncomment when using few-shot for fully supervised training
             # nn.Dropout2d(p=0.5) ,
             #nn.Conv2d(reduce_dim, 19, kernel_size=1, padding=0), 
-            nn.Conv2d(reduce_dim, reduce_dim, kernel_size=1, padding=0,bias=False),           
+                   
         )      
 
         self.down= nn.Sequential(
